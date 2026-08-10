@@ -1,5 +1,7 @@
-<img width="2144" height="480" alt="evomedia-logo-horizontal" src="https://github.com/user-attachments/assets/b69b3dc2-5671-4e27-833c-ce18f19d806c" />
-
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="evomedia-logo-horizontal-reversed.png">
+  <img src="evomedia-logo-horizontal.png" alt="evomedia.net" width="560">
+</picture>
 
 Software built and operated by Kelly Michels — multi-tenant web apps, the
 platform they share, and the tooling that runs them.
