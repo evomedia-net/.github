@@ -1,0 +1,50 @@
+Pull request
+============
+
+What changed, and why
+---------------------
+
+<!-- A couple of sentences. Say what the change does, not which files moved. -->
+
+Closes
+------
+
+<!-- Every defect is fixed on a branch, through a pull request, and the pull
+     request closes the issue it fixes.
+
+     Put Closes #123 in a COMMIT BODY, not only here. That trailer is what
+     closes the issue on merge and what permanently links the issue to the
+     commit that fixed it - a reference that survives the pull request being
+     squashed, retitled, or rewritten years later. A number typed only in this
+     description closes the issue and leaves no trace in git.
+
+     One commit per issue, even when several ride the same pull request, so
+     any one of them can be reverted alone.
+
+     No issue? Say so. Feature work and chores do not need one. -->
+
+Closes #
+
+How it was tested
+-----------------
+
+<!-- Which suites you ran and what they said. Name anything you could not run
+     and why - "no Docker locally, so the database-backed jobs are CI's word"
+     is a useful sentence; silence is not. -->
+
+Checklist
+---------
+
+- [ ] One logical change. Unrelated fixes belong on their own branch.
+- [ ] Commits follow Conventional Commits (https://www.conventionalcommits.org/) (type(scope): summary).
+- [ ] Closes #N is in a commit body for every issue this fixes.
+- [ ] Tests come with the change. A bug fix includes a test that fails without it.
+- [ ] Every .md touched has its .txt twin updated in the same commit.
+- [ ] User-facing changes are documented in this pull request, not a follow-up.
+- [ ] No secrets, tokens, or real addresses in the diff, test fixtures included.
+
+Anything reviewers should know
+------------------------------
+
+<!-- Trade-offs, things left out on purpose, follow-ups worth filing. Known
+     limitations stated here are far cheaper than the ones found later. -->
