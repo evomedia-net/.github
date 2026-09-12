@@ -1,0 +1,80 @@
+Security policy
+===============
+
+This is the default policy for every repository under evomedia-net
+(https://github.com/evomedia-net). A repository with its own SECURITY.md
+describes what is particular to it and defers to this for the process.
+
+Reporting a vulnerability
+-------------------------
+
+Email dev@evomedia.net (mailto:dev@evomedia.net). Please do not open a public
+issue for something exploitable — an issue is world-readable the moment it is
+filed, and that is the one thing a report should not be.
+
+Where a repository has GitHub's private vulnerability reporting enabled, the
+Report a vulnerability button on its Security tab works too and keeps the
+whole exchange in one place.
+
+Useful things to include, as far as you have them:
+
+  - which repository, and which version or commit
+  - what an attacker can do with it — the impact is what decides the priority
+  - the smallest set of steps that reproduces it
+  - anything you already know about a fix
+
+A rough report of something real is worth far more than a polished report of
+something theoretical. Send it before you have all of the above.
+
+What to expect
+--------------
+
+These projects are maintained by one person. That shapes the promise, so here
+is the honest version rather than a service level nobody is on call to meet:
+
+  - Acknowledgement within three working days. If you have not heard back by
+    then, assume the mail went astray and send it again.
+  - An assessment after that — whether it reproduces, how serious it looks,
+    and roughly when a fix will land. A high-impact issue in something
+    deployed gets worked immediately; a low-impact issue in a tool may wait
+    for the next release.
+  - Credit in the release notes, unless you would rather not be named.
+  - No bounty programme. There is no money in this, and saying otherwise
+    would waste your time.
+
+Please give a reasonable window before disclosing publicly. If a fix is taking
+too long, say so and we will agree a date rather than let it drift.
+
+In scope
+--------
+
+Anything in a public repository here: the code, its dependencies as pinned,
+its build and release process, and the release archives and their checksums.
+
+Reports about a deployed service — anything under evomedia.net or evoehs.com
+— are welcome at the same address.
+
+Not in scope
+------------
+
+  - Demo and sample data. Several projects seed a workspace with obviously
+    fake records so the thing can be looked at. Fake credentials in seed data
+    are the point, not a finding.
+  - Findings from a scanner with no working case behind them. A CVE in a
+    transitive dependency that the code cannot reach is a note, not a
+    vulnerability — send it as an issue rather than a report.
+  - Anything requiring an attacker who already has the machine. If the premise
+    is local filesystem or shell access, the security boundary was crossed
+    before the software was involved.
+  - Missing hardening that costs nothing to exploit and nothing to fix — a
+    header that could be stricter, a cookie flag on a page with no session.
+    Send these as ordinary issues; they get fixed, just not urgently.
+
+Please do not
+-------------
+
+Test against the deployed services in ways that damage them or reach other
+people's data: no denial of service, no automated scanning that generates real
+load, no brute force against live logins, and nothing that touches an account
+that is not yours. Ask for a local stack instead — every project here runs on
+its own machine, and that is a better place to prove a bug anyway.
