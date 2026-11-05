@@ -1,14 +1,15 @@
 evomedia.net
-============
 
 Software built and operated by Kelly Michels — multi-tenant web apps, the
 platform they share, and the tooling that runs them.
 
-evomedia.net (https://evomedia.net) — products, projects, and background
-docs.evomedia.net (https://docs.evomedia.net) — product documentation
+| | |
+|---|---|
+| evomedia.net (https://evomedia.net) | products, projects, and background |
+| docs.evomedia.net (https://docs.evomedia.net) | product documentation |
 
 Public repositories
--------------------
+~~~~~~~~~~~~~~~~~~~
 
 | Repository | What it is |
 |---|---|
