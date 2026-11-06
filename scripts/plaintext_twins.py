@@ -12,8 +12,8 @@ They are generated - never edit one by hand:
     python scripts/plaintext_twins.py --check  # exit 1 if any is out of sync
 
 Nothing in this repository runs --check automatically: it has no test suite
-and no CI. Run it by hand before committing a documentation change, until
-there is somewhere for the check to live.
+that this belongs in. Run it by hand before committing a documentation
+change, until there is somewhere for the check to live.
 
 A hand-kept duplicate drifts, and the drift is invisible precisely because
 nobody reads both copies. The twins this repository had before were written by
@@ -148,6 +148,12 @@ def _inline(text: str) -> str:
     text = re.sub(r"\[([^\]]+)\]\(([^)]+)\)", link, text)
     text = re.sub(r"\*\*([^*]+)\*\*", r"\1", text)  # bold
     text = re.sub(r"(?<!\*)\*([^*\n]+)\*(?!\*)", r"\1", text)  # italic
+    # Strikethrough, same class as the two above. Left in place, its markers
+    # read as punctuation AND collide with the "~" a third-level heading is
+    # underlined with. `~~smartplantpermits~~ -> ehs` says what it means
+    # without them. Safe to do unconditionally here: no document in the fleet
+    # uses "~~~" as a code fence, which is the one thing this would disturb.
+    text = re.sub(r"~~([^~]+)~~", r"\1", text)  # strikethrough
     return restore(text)
 
 
