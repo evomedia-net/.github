@@ -105,30 +105,50 @@ _HTML = (
 
 
 def _inline(text: str) -> str:
+    """Strip the inline markup, keeping the words and the link targets.
+
+    Inline code is lifted out FIRST and put back last. What is inside backticks
+    is content, not markup, and running the emphasis rules over it corrupts it:
+    DocketMail documents a pair of input files as `Civil Parties*JWEB*.txt`, and
+    stripping that glob's asterisks as italics glued two words into
+    "PartiesJWEB". The same ordering bug is in the fleet's other two twin
+    generators. Same reasoning for the HTML rules - `<div>` written as an
+    example is a word, not a tag.
+    """
+    code: list[str] = []
+
+    def lift(match: re.Match) -> str:
+        code.append(match.group(1))
+        return f"\x00{len(code) - 1}\x00"
+
+    def restore(s: str) -> str:
+        return re.sub(r"\x00(\d+)\x00", lambda m: code[int(m.group(1))], s)
+
+    text = re.sub(r"`([^`]+)`", lift, text)
+
     # An <img> carries its words in alt=, exactly as a markdown image does.
     text = re.sub(r"<img\b[^<>]*?\balt=[\"']([^\"']*)[\"'][^<>]*>", r"\1", text)
     text = re.sub(_HTML, "", text)
     text = re.sub(r"!\[([^\]]*)\]\([^)]*\)", r"\1", text)  # images -> alt text
-    text = re.sub(r"\[([^\]]+)\]\(([^)]+)\)", _link, text)  # links -> text (url)
+
+    def link(match: re.Match) -> str:
+        """A link becomes "text (url)" - unless the text already IS the url.
+
+        `dev@evomedia.net` linked to mailto:dev@evomedia.net, or a filename
+        linked to itself, would otherwise read as "x (x)", which tells the
+        reader nothing twice. Compared after putting the code back, because
+        such a link is usually written with backticks around its text.
+        """
+        shown, url = match.group(1), match.group(2)
+        bare, target = restore(shown), restore(url)
+        if bare == target or target == "mailto:" + bare:
+            return shown
+        return f"{shown} ({url})"
+
+    text = re.sub(r"\[([^\]]+)\]\(([^)]+)\)", link, text)
     text = re.sub(r"\*\*([^*]+)\*\*", r"\1", text)  # bold
     text = re.sub(r"(?<!\*)\*([^*\n]+)\*(?!\*)", r"\1", text)  # italic
-    text = re.sub(r"`([^`]+)`", r"\1", text)  # inline code
-    return text
-
-
-def _link(match: re.Match) -> str:
-    """A link becomes "text (url)" - unless the text already IS the url.
-
-    `dev@evomedia.net` linked to mailto:dev@evomedia.net, or a filename linked
-    to itself, would otherwise read as "x (x)", which tells the reader nothing
-    twice. The comparison ignores inline-code markers because such a link is
-    usually written with them, and they come off a few lines below.
-    """
-    text, url = match.group(1), match.group(2)
-    bare = text.replace("`", "")
-    if bare == url or url == "mailto:" + bare:
-        return text
-    return f"{text} ({url})"
+    return restore(text)
 
 
 def render(md: str) -> str:
