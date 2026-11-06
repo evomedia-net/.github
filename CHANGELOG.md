@@ -22,6 +22,7 @@ under Unreleased in the same pull request.
 
 ### Documentation
 
+- **twins:** generate the plain-text twins instead of keeping them by hand - CHANGELOG.md gets one, a third-level heading underlines with `~` the way the fleet format does, and `scripts/plaintext_twins.py --check` reports a twin that has drifted ([#7](https://github.com/evomedia-net/.github/pull/7))
 - **changelog:** a changelog in the fleet format, backfilled from the history of main ([#6](https://github.com/evomedia-net/.github/pull/6))
 - **profile:** describe evo.polaris as a sky guide made for every astronomer ([#5](https://github.com/evomedia-net/.github/pull/5))
 - **profile:** list evo.polaris among the public repositories ([#4](https://github.com/evomedia-net/.github/pull/4))
